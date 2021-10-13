@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C4BD1411-2D95-458F-94F6-B59D46061AA4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>MegaEngine</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(DXSDK_DIR)\Include;$(ProjectDir)\..\..\..\Dependencies\assimp-3.1.1\include;$(ProjectDir)\..\..\..\Dependencies\rapidjson-master\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(ProjectDir)\..\..\..\Dependencies\assimp-3.1.1\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;assimpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraPositionData.cpp" />
+    <ClCompile Include="ConstantVariableDataFactory.cpp" />
+    <ClCompile Include="DebugConsole.cpp" />
+    <ClCompile Include="DomainShaderStage.cpp" />
+    <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="Direct3D.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="GameMaster.cpp" />
+    <ClCompile Include="GeometryShaderStage.cpp" />
+    <ClCompile Include="HullShaderStage.cpp" />
+    <ClCompile Include="IConstantVariableData.cpp" />
+    <ClCompile Include="InputLayout.cpp" />
+    <ClCompile Include="JsonUtil.cpp" />
+    <ClCompile Include="OscillateWorldData.cpp" />
+    <ClCompile Include="PixelShaderStage.cpp" />
+    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="JsonScene.cpp" />
+    <ClCompile Include="PipelineState.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RotateWorldData.cpp" />
+    <ClCompile Include="ShadowTexData.cpp" />
+    <ClCompile Include="SkyBoxWVPData.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UnstructuredFunctions.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VertexShaderStage.cpp" />
+    <ClCompile Include="ViewData.cpp" />
+    <ClCompile Include="ViewProjData.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="WorldInverseTransposeData.cpp" />
+    <ClCompile Include="WorldViewData.cpp" />
+    <ClCompile Include="WorldViewProjData.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraPositionData.h" />
+    <ClInclude Include="CBFuncHeaders.h" />
+    <ClInclude Include="Colour.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="ConstantBufferData.h" />
+    <ClInclude Include="ConstantVariableDataFactory.h" />
+    <ClInclude Include="Direct3D.h" />
+    <ClInclude Include="DomainShaderStage.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="GameMaster.h" />
+    <ClInclude Include="GeometryShaderStage.h" />
+    <ClInclude Include="HullShaderStage.h" />
+    <ClInclude Include="IConstantVariableData.h" />
+    <ClInclude Include="JsonKeywords.h" />
+    <ClInclude Include="JsonUtil.h" />
+    <ClInclude Include="OscillateWorldData.h" />
+    <ClInclude Include="PixelShaderStage.h" />
+    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="DebugConsole.h" />
+    <ClInclude Include="Factory.h" />
+    <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="JsonScene.h" />
+    <ClInclude Include="PipelineState.h" />
+    <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RotateWorldData.h" />
+    <ClInclude Include="IShaderStage.h" />
+    <ClInclude Include="ShaderStages.h" />
+    <ClInclude Include="ShadowTexData.h" />
+    <ClInclude Include="SkyBoxWVPData.h" />
+    <ClInclude Include="StageFactory.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="UnstructuredFunctions.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexShaderStage.h" />
+    <ClInclude Include="ViewData.h" />
+    <ClInclude Include="ViewProjData.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="WinMain.h" />
+    <ClInclude Include="WorldInverseTransposeData.h" />
+    <ClInclude Include="WorldViewData.h" />
+    <ClInclude Include="WorldViewProjData.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

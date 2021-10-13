@@ -1,0 +1,47 @@
+// Mega
+
+cbuffer PerFrame : register(cb0) 
+{
+	float4x4 gViewProj;
+};
+
+
+struct Input 
+{
+	float4 positionWS 	: POSITION;
+	float3 normal 		: NORMAL;
+};
+
+struct Output 
+{
+	float4 positionCS 	: SV_Position;
+	float4 positionWS 	: POSITION;
+	float3 normal 		: NORMAL;
+};
+
+struct HSPatchData 
+{
+	float EdgeTessFactor[4]			: SV_TessFactor;
+	float InsideTessFactor[2]		: SV_InsideTessFactor;
+};
+
+[domain("quad")]
+Output main(HSPatchData input,
+			float2 domain : SV_DomainLocation,	// (u, v)
+			const OutputPatch<Input, 4> cp) 	// Control point array (patch) for quad
+{
+	Output output;
+
+	// Bi-linear interpolate (u, v) for position
+	float4 a = lerp(cp[0].positionWS, cp[1].positionWS, domain.x);
+	float4 b = lerp(cp[2].positionWS, cp[3].positionWS, domain.x);
+	output.positionWS = lerp(a, b, domain.y);
+
+	output.positionCS = mul(output.positionWS, gViewProj);
+
+	float3 t1 = lerp(cp[0].normal, cp[1].normal, domain.x);
+	float3 t2 = lerp(cp[2].normal, cp[3].normal, domain.x);
+	output.normal = lerp(t1, t2, domain.y);
+
+	return output;
+}

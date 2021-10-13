@@ -1,0 +1,20 @@
+{
+	"cameras" : 
+	[
+		{
+			"name" 			: "mainCam",
+			"position" 		: [10, 10, 10],
+			"look" 			: [0, 0, 0],
+			"fov"			: 0.5,
+			"ortho"			: false
+		},
+		
+		{
+			"name" 			: "reflectCam",
+			"position" 		: [0, 0, 0],
+			"look" 			: [1, 0, 0],
+			"fov"			: 0.5,
+			"ortho"			: false
+		}
+	]
+}

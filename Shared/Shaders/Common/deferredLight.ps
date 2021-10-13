@@ -1,0 +1,66 @@
+// Mega
+
+Texture2D gPosition : register(t0);
+Texture2D gNormal	: register(t1);
+Texture2D gDiffuse	: register(t2);
+
+SamplerState gLinear : register(s0);
+
+cbuffer Light : register(cb0)
+{
+	float3	gLightPos;
+	float3	gLightColour;
+	float3	gCameraPos;
+	float	gLightAtt;
+};
+
+struct Input
+{
+	float4 position : SV_Position;
+	float2 texcoord	: TEXCOORD;
+};
+
+float4 main(Input input) : SV_Target
+{
+	float4 p_and_p 	= gPosition.Sample	(gLinear, input.texcoord);
+	float4 n_and_e	= gNormal.Sample  	(gLinear, input.texcoord);
+	float4 c_and_s	= gDiffuse.Sample 	(gLinear, input.texcoord);
+	
+	float3 position = p_and_p.xyz;
+	float specPwr	= p_and_p.w;
+	
+	float3 normal 	= n_and_e.xyz;
+	float specEms 	= n_and_e.w;
+
+	float3 colour	= c_and_s.xyz;
+	float shadow 	= c_and_s.w;
+	
+	// new shadow stuff
+	/*
+	if (shadow > 0.0)
+	{
+		colour = saturate(colour - shadow);
+		return float4(1.0, 1.0, 1.0, specPwr);
+	}
+	*/
+	// new shadow stuff
+	
+	float3 L = normalize(gLightPos	- position);
+	float3 C = normalize(gCameraPos - position);
+	float3 N = normalize(normal);
+	float3 R = reflect(-L, N);
+		
+	colour *= saturate(dot(L, N)) * gLightColour;			// diffuse
+	colour += pow(max(0.0, dot(R, C)), specPwr) * specEms;	// specular
+	
+	colour = saturate(colour);
+	
+	float dist = length(gLightPos - position);
+	float attenuation = max(0.0, 1.0 - (dist / gLightAtt));
+	
+	colour *= attenuation;
+	colour -= shadow;
+	
+	// specPwr is used as the alpha here because it is 0 when the render target hasn't been written too and >= 1 when it has been
+	return float4(colour, specPwr);
+}

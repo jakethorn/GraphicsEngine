@@ -1,0 +1,72 @@
+// Jake
+
+cbuffer PerFrame : register(cb0)
+{
+	float4x4 	gParaboloidBasis;
+}
+
+Texture2DArray  gParaboloidPosition : register( t0 );  
+Texture2DArray  gParaboloidNormal	: register( t1 );  
+Texture2DArray  gParaboloidDiffuse	: register( t2 );       
+    
+SamplerState    gLinear 			: register( s0 );
+
+struct Input
+{
+    float4 position : SV_Position;
+	float3 normal   : NORMAL;
+	float3 camera   : CAMERA;
+};
+
+struct Output
+{
+	float4 position : SV_Target0;
+	float4 normal	: SV_Target1;
+	float4 diffuse	: SV_Target2;
+};
+
+Output main( Input input )
+{
+    Output output;
+
+	// Normalize the input normal and eye vectors
+	float3 N = normalize( input.normal );
+	float3 E = normalize( input.camera );
+
+	// Calculate the world space reflection vector, and then transform it to 
+	// the paraboloid basis.
+	float3 R = reflect( E, N );
+	R = mul( R, (float3x3)gParaboloidBasis );
+	
+	// Calculate the forward paraboloid map texture coordinates, with z 
+	// determining which paraboloid map to sample (front or back).
+	float3 front;
+	front.x = (R.x / (2*(1 + R.z))) + 0.5;
+	front.y = 1-((R.y / (2*(1 + R.z))) + 0.5);
+	front.z = 0.0f;
+
+	// Calculate the backward paraboloid map texture coordinates, with z 
+	// determining which paraboloid map to sample (front or back).
+	float3 back;
+	back.x = (R.x / (2*(1 - R.z))) + 0.5;
+	back.y = 1-((R.y / (2*(1 - R.z))) + 0.5);
+	back.z = 1.0f;
+
+	// Sample the appropriate paraboloid map based on which direction 
+	// the reflection vector is pointing.
+	if ( R.z > 0 )
+	{
+		output.position = gParaboloidPosition.Sample( gLinear, front );
+		output.normal 	= gParaboloidNormal.Sample	( gLinear, front );
+		output.diffuse 	= gParaboloidDiffuse.Sample	( gLinear, front );
+	}
+	else
+	{
+		output.position = gParaboloidPosition.Sample( gLinear, back );
+		output.normal 	= gParaboloidNormal.Sample	( gLinear, back );
+		output.diffuse 	= gParaboloidDiffuse.Sample	( gLinear, back );
+	}
+
+    return output;
+}
+//-----------------------------------------------------------------------------

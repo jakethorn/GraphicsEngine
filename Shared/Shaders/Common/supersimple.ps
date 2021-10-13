@@ -1,0 +1,16 @@
+// Mega
+
+cbuffer PerRun : register(cb0)
+{
+	float4 gColour;
+};
+
+struct Input
+{
+	float4 positionCS : SV_Position;
+};
+
+float4 main(Input input) : SV_Target
+{
+	return gColour;
+}

@@ -1,0 +1,32 @@
+{
+	"renderables" :
+	[
+		{
+			"pipelineState" : "CubeMapLookupPPS",
+			"camera" : "mainCam",
+			"shape" : "../../../Shared/Models/cube.obj",
+			"position" : [0, 0, 0],
+			"scale" : [1, 1, 1],
+			"rotation" : [0 ,0 ,0],
+			"gColour" : "green",
+			"gSpecPwr" : 1,
+			"gSpecEms" : 0,
+			"layer" : 10,
+			"texture" : "../../../Shared/Textures/earth.dds",
+			"followPlayer" : true
+		}
+	],
+	
+	"pipelineStates" :
+	[
+		{
+			"name" : "CubeMapLookupPPS",
+			"shaderFile" : "realtime_cw1/CubeMapLookup",
+			"ps_shaderFile" : "realtime_cw1/CubeMapLookup",
+			"inputLayout" : ["position"],
+			"sampler" : "linear",
+			"rasterizerState" : "noCull",
+			"blendState" : "specialA"
+		}
+	]
+}

@@ -1,0 +1,38 @@
+// Jake
+
+cbuffer PerRun : register(cb0)
+{
+	float4 gColour;
+};
+
+struct Input
+{
+	// Environment Map Generation
+	float4 position : SV_Position;
+	float  zvalue  	: ZVALUE;
+	uint   rtaindex : SV_RenderTargetArrayIndex;
+	
+	// GBuffer Generation
+	float4 positionWS 	: POSITION;
+	float3 normal 		: NORMAL;
+};
+
+struct Output
+{
+	float4 position : SV_Target0;
+	float4 normal	: SV_Target1;
+	float4 diffuse	: SV_Target2;
+};
+
+Output main(Input input)
+{
+	clip( input.zvalue + 0.05f );
+
+	Output output;
+	
+	output.position = float4(input.positionWS.xyz, 1.0f);
+	output.normal	= float4(normalize(input.normal), 1.0f);
+	output.diffuse	= gColour;
+	
+	return output;
+}

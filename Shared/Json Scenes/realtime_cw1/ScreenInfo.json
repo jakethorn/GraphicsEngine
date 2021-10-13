@@ -1,0 +1,97 @@
+{
+	"renderables" :
+	[
+		{
+			"pipelineState" : "TexturedScreenQuadPPS_Back",
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [-0.86, -0.86, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0, 0, 0],
+			"resourceSlot" : 0,
+			"layer" : 12
+		},
+		
+		{
+			"pipelineState" : "TexturedScreenQuadPPS_Back",
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [-0.58, -0.86, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0, 0, 0],
+			"resourceSlot" : 1,
+			"layer" : 12
+		},
+		
+		{
+			"pipelineState" : "TexturedScreenQuadPPS_Back",
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [-0.30, -0.86, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0, 0, 0],
+			"resourceSlot" : 2,
+			"layer" : 12
+		},
+		
+		{
+			"pipelineState" : "TexturedScreenQuadPPS_Front",
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [-0.86, -0.58, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0, 0, 0],
+			"resourceSlot" : 0,
+			"layer" : 12
+		},
+		
+		{
+			"pipelineState" : "TexturedScreenQuadPPS_Front",
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [-0.58, -0.58, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0, 0, 0],
+			"resourceSlot" : 1,
+			"layer" : 12
+		},
+		
+		{
+			"pipelineState" : "TexturedScreenQuadPPS_Front",
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [-0.30, -0.58, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0, 0, 0],
+			"resourceSlot" : 2,
+			"layer" : 12
+		}
+	],
+	
+	"pipelineStates" :
+	[
+		{
+			"name" : "TexturedScreenQuadPPS_Back",
+			"shaderFile" : "realtime_cw1/TexturedScreenQuad",
+			"ps_shaderFile" : "realtime_cw1/TexturedScreenQuad_Back",
+			"inputLayout" : ["position"],
+			"sampler" : "linear",
+			"depthStencilState" : "disabled",
+			"attach" :
+			{
+				"to" : "EnvMapGenPPS",
+				"numViews" : 3,
+				"depth" : false
+			}
+		},
+		
+		{
+			"name" : "TexturedScreenQuadPPS_Front",
+			"shaderFile" : "realtime_cw1/TexturedScreenQuad",
+			"ps_shaderFile" : "realtime_cw1/TexturedScreenQuad_Front",
+			"inputLayout" : ["position"],
+			"sampler" : "linear",
+			"depthStencilState" : "disabled",
+			"attach" :
+			{
+				"to" : "EnvMapGenPPS",
+				"numViews" : 3,
+				"depth" : false
+			}
+		}
+	]
+}

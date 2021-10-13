@@ -1,0 +1,11 @@
+{
+	"Include" : 
+	[
+		"../../../Shared/Json Scenes/realtime_cw1/Cameras.json",
+		"../../../Shared/Json Scenes/realtime_cw1/Renderables.json",
+		"../../../Shared/Json Scenes/realtime_cw1/PipelineStates.json",
+		"../../../Shared/Json Scenes/realtime_cw1/SkyBox.json",
+		"../../../Shared/Json Scenes/realtime_cw1/DeferredLighting.json",
+		"../../../Shared/Json Scenes/realtime_cw1/ScreenInfo.json"
+	]
+}

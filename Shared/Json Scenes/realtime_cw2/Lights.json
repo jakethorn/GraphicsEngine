@@ -1,0 +1,16 @@
+{
+	"renderables" :
+	[
+		{
+			"pipelineState" : "deferredDirPPS",
+			"camera" : "mainCam",
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [0, 0, 0],
+			"scale" : [1, 1, 1],
+			"rotation" : [0, 0, 0],
+			"lightPos" : [100, 100, 100],
+			"lightColour" : [1, 1, 1],
+			"layer" : 2
+		}
+	]
+}

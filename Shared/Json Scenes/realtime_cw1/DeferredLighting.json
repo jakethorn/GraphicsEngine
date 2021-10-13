@@ -1,0 +1,64 @@
+{
+	"renderables" :
+	[
+		{
+			"pipelineState" : "DeferredLightingPPS",
+			"camera" : "mainCam",
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [0, 0, 0],
+			"scale" : [1, 1, 1],
+			"rotation" : [0, 0, 0],
+			"lightPos" : [75, 100, 50],
+			"lightColour" : [1, 1, 1],
+			"layer" : 2
+		}
+	],
+
+	"pipelineStates" :
+	[
+		{
+			"name" : "GBufferGenPPS",
+			"shaderFile" : "realtime_cw1/GBufferGen",
+			"ps_shaderFile" : "realtime_cw1/GBufferGen",
+			"inputLayout" : ["position", "normal"],
+			"sampler" : "linear",
+			"renderTarget" : 
+			{
+				"width" : 0,
+				"height" : 0,
+				"formats" : [ "R32G32B32A32_FLOAT", "R8G8B8A8_SNORM", "R8G8B8A8_UNORM" ]
+			}
+		},
+		
+		{
+			"name" : "TerrainGBufferGenPPS",
+			"shaderFile" : "realtime_cw1/GBufferGen",
+			"hullShader" : "realtime_cw1/MyFirstHullShader",
+			"domainShader" : "realtime_cw1/MyFirstDomainShader",
+			"ps_shaderFile" : "realtime_cw1/GBufferGen",
+			"inputLayout" : ["position", "normal"],
+			"sampler" : "linear",
+			"renderTarget" : 
+			{
+				"width" : 0,
+				"height" : 0,
+				"formats" : [ "R32G32B32A32_FLOAT", "R8G8B8A8_SNORM", "R8G8B8A8_UNORM" ]
+			}
+		},
+		
+		{
+			"name" : "DeferredLightingPPS",
+			"shaderFile" : "realtime_cw1/DeferredLighting",
+			"ps_shaderFile" : "realtime_cw1/DeferredLighting",
+			"inputLayout" : ["position"],
+			"blendState" : "additive",
+			"sampler" : "linear",
+			"depthStencilState" : "disabled",
+			"attach" :
+			{
+				"to" : "GBufferGenPPS",
+				"numViews" : 3
+			}
+		}
+	]
+}

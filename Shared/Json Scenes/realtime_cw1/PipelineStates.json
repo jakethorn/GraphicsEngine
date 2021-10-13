@@ -1,0 +1,33 @@
+{
+	"pipelineStates" :
+	[
+		{
+			"name" : "EnvMapGenPPS",
+			"shaderFile" : "realtime_cw1/EnvMapGen",
+			"gs_shaderFile" : "realtime_cw1/EnvMapGen",
+			"ps_shaderFile" : "realtime_cw1/EnvMapGen",
+			"inputLayout" : ["position", "normal"],
+			"renderTarget" : 
+			{
+				"width" : 0,
+				"height" : 0,
+				"formats" : [ "R32G32B32A32_FLOAT", "R8G8B8A8_SNORM", "R8G8B8A8_UNORM" ],
+				"slices" : 2
+			}
+		},
+		
+		{
+			"name" : "EnvMapLookupPPS",
+			"shaderFile" : "realtime_cw1/EnvMapLookup",
+			"ps_shaderFile" : "realtime_cw1/EnvMapLookup",
+			"inputLayout" : ["position", "normal"],
+			"sampler" : "linear",
+			"depthStencilState" : "enabled",
+			"attach" :
+			{
+				"to" : "EnvMapGenPPS",
+				"numViews" : 3
+			}
+		}
+	]
+}

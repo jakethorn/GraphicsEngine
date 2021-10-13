@@ -1,0 +1,108 @@
+{
+	"Include" : 
+	[
+		"../../../Shared/Json Scenes/realtime_cw2/Cameras.json",
+		"../../../Shared/Json Scenes/realtime_cw2/PipelineStates.json",
+		"../../../Shared/Json Scenes/realtime_cw2/Lights.json",
+		"../../../Shared/Json Scenes/realtime_cw2/ScreenInfo.json",
+		"../../../Shared/Json Scenes/realtime_cw2/Shadows.json"
+	],
+
+	"renderables" :
+	[
+		{
+			"pipelineState" : "mainPPS",
+			"camera" : "mainCam",
+			"shape" : "../../../Shared/Models/suzanne.3ds",
+			"position" : [5, 1, 0],
+			"scale" : [1, 1, 1],
+			"rotation" : [1.57, 3.14, 0],
+			"colour" : [1, 0, 0],
+			"gSpecPwr" : 128,
+			"gSpecEms" : 1,
+			"layer" : 1,
+			"shadow" : 
+			{
+				"enabled" : true,
+				"pipelineState" : "shadowPPS",
+				"camera" : "lightCam",
+				"bias" : 0.005
+			}
+		},
+		
+		{
+			"pipelineState" : "mainPPS",
+			"camera" : "mainCam",
+			"shape" : "../../../Shared/Models/suzanne.3ds",
+			"position" : [-5, 1, 0],
+			"scale" : [1, 1, 1],
+			"rotation" : [1.57, 3.14, 0],
+			"colour" : [1, 0, 0],
+			"gSpecPwr" : 32,
+			"gSpecEms" : 1,
+			"layer" : 1,
+			"shadow" : 
+			{
+				"enabled" : true,
+				"pipelineState" : "shadowPPS",
+				"camera" : "lightCam",
+				"bias" : 0.005
+			}
+		},
+		
+		{
+			"pipelineState" : "mainPPS",
+			"camera" : "mainCam",
+			"shape" : "../../../Shared/Models/terrain.3ds",
+			"position" : [0, -5, 0],
+			"scale" : [1, 1, 3],
+			"rotation" : [1.57, 0, 0],
+			"colour" : [0, 1, 0],
+			"gSpecPwr" : 1,
+			"gSpecEms" : 0,
+			"layer" : 1,
+			"shadow" : 
+			{
+				"enabled" : true,
+				"pipelineState" : "shadowPPS",
+				"camera" : "lightCam",
+				"bias" : 0.005
+			}
+		},
+		
+		{
+			"pipelineState" : "mainPPS",
+			"camera" : "mainCam",
+			"shape" : "../../../Shared/Models/cube.obj",
+			"position" : [0, -3, 0],
+			"scale" : [100, 1, 100],
+			"rotation" : [0, 0, 0],
+			"colour" : [0, 0, 1],
+			"gSpecPwr" : 64,
+			"gSpecEms" : 1,
+			"layer" : 1,
+			"shadow" : 
+			{
+				"enabled" : true,
+				"pipelineState" : "shadowPPS",
+				"camera" : "lightCam",
+				"bias" : 0.005
+			}
+		},
+		
+		{
+			"pipelineState" : "cubemapPPS",
+			"camera" : "mainCam",
+			"shape" : "../../../Shared/Models/cube.obj",
+			"position" : [0, 0, 0],
+			"scale" : [1, 1, 1],
+			"rotation" : [0, 0, 0],
+			"colour" : [0, 1, 0],
+			"gSpecPwr" : 1,
+			"gSpecEms" : 0,
+			"layer" : 4,
+			"texture" : "../../../Shared/Textures/earth.dds",
+			"followPlayer" : true
+		}
+	]
+}

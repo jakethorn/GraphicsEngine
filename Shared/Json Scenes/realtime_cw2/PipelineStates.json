@@ -1,0 +1,64 @@
+{
+	"pipelineStates" :
+	[
+		{
+			"name" : "mainPPS",
+			"shaderFile" : "realtime_cw2/GBufferGen",
+			"ps_shaderFile" : "realtime_cw2/GBufferGen",
+			"inputLayout" : ["position", "normal"],
+			"sampler" : "linear",
+			"renderTarget" : 
+			{
+				"width" : 0,
+				"height" : 0,
+				"formats" : [ "R32G32B32A32_FLOAT", "R8G8B8A8_SNORM", "R8G8B8A8_UNORM" ]
+			},
+			"attach" :
+			{
+				"to" : "shadowPPS",
+				"numViews" : 0,
+				"depth" : true
+			}
+		},
+		
+		{
+			"name" : "cubemapPPS",
+			"shaderFile" : "realtime_cw2/CubeMapLookup",
+			"ps_shaderFile" : "realtime_cw2/CubeMapLookup",
+			"inputLayout" : ["position"],
+			"sampler" : "linear",
+			"rasterizerState" : "noCull",
+			"blendState" : "specialA"
+		},
+		
+		{
+			"name" : "screenQuadPPS",
+			"shaderFile" : "realtime_cw2/ScreenQuad",
+			"ps_shaderFile" : "realtime_cw2/ScreenQuad_Texture",
+			"inputLayout" : ["position"],
+			"sampler" : "linear",
+			"depthStencilState" : "disabled",
+			"attach" :
+			{
+				"to" : "mainPPS",
+				"numViews" : 3,
+				"depth" : false
+			}
+		},
+		
+		{
+			"name" : "deferredDirPPS",
+			"shaderFile" : "realtime_cw2/DeferredLight",
+			"ps_shaderFile" : "realtime_cw2/DeferredLight",
+			"inputLayout" : ["position"],
+			"blendState" : "additive",
+			"sampler" : "linear",
+			"depthStencilState" : "disabled",
+			"attach" :
+			{
+				"to" : "mainPPS",
+				"numViews" : 3
+			}
+		}
+	]
+}

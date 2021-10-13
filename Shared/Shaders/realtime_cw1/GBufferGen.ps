@@ -1,0 +1,46 @@
+// Mega
+
+cbuffer PerRun : register(cb0)
+{
+	float4	gColour;
+	float	gSpecPwr;
+	float	gSpecEms;
+};
+
+cbuffer PerFrame : register(cb1)
+{
+	float3 	gCameraPos;
+};
+
+struct Input
+{
+	float4 positionCS 	: SV_Position;
+	float4 positionWS 	: POSITION;
+	float3 normal 		: NORMAL;
+};
+
+struct Output
+{
+	float4 position : SV_Target0;
+	float4 normal	: SV_Target1;
+	float4 diffuse	: SV_Target2;
+};
+
+Output main(Input input)
+{
+	Output output;
+	
+	output.position = float4(input.positionWS.xyz, gSpecPwr);
+	output.normal	= float4(normalize(input.normal), gSpecEms);
+	output.diffuse	= gColour;
+	
+	float3 C = normalize( gCameraPos - input.positionWS.xyz );
+	float3 N = normalize( input.normal );
+	
+	if (dot(C, N) < 0.1)
+	{
+		output.diffuse = float4(0.0, 0.0, 0.0, 1.0);
+	}
+	
+	return output;
+}

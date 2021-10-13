@@ -1,0 +1,32 @@
+{
+	"pipelineStates" :
+	[
+		{
+			"name" : "shadowPPS",
+			"shaderFile" : "realtime_cw2/WVP_PassThrough",
+			"ps_shaderFile" : "",
+			"inputLayout" : ["position"],
+			"renderTarget" : 
+			{
+				"width" : 16000,
+				"height" : 9000,
+				"formats" : []
+			}
+		},
+		
+		{
+			"name" : "screenQuadPPS_02",
+			"shaderFile" : "realtime_cw2/ScreenQuad",
+			"ps_shaderFile" : "realtime_cw2/ScreenQuad_Depth",
+			"inputLayout" : ["position"],
+			"sampler" : "linear",
+			"depthStencilState" : "disabled",
+			"attach" :
+			{
+				"to" : "shadowPPS",
+				"numViews" : 0,
+				"depth" : true
+			}
+		}
+	]
+}

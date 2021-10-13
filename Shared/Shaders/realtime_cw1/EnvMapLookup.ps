@@ -1,0 +1,99 @@
+// Jake
+
+cbuffer PerFrame : register(cb0)
+{
+	float4x4 	gParaboloidBasis;
+	
+	// Lighting
+	float3	gLightPos;
+	float3	gLightColour;
+	float3	gCameraPos;
+}
+
+Texture2DArray  gParaboloidPosition : register( t0 );  
+Texture2DArray  gParaboloidNormal	: register( t1 );  
+Texture2DArray  gParaboloidDiffuse	: register( t2 );       
+    
+SamplerState    gLinear 			: register( s0 );
+
+struct Input
+{
+    float4 position : SV_Position;
+	float3 normal   : NORMAL;
+	float3 camera   : CAMERA;
+};
+
+const static float3 ambient = float3(0.1, 0.1, 0.1);
+
+float4 main( Input input ) : SV_Target
+{
+	/*
+		ENVIRONMENT MAP LOOKUP
+	*/
+
+	// Normalize the input normal and eye vectors
+	float3 N = normalize( input.normal );
+	float3 E = normalize( input.camera );
+
+	// Calculate the world space reflection vector, and then transform it to 
+	// the paraboloid basis.
+	float3 R = reflect( E, N );
+	R = mul( R, (float3x3)gParaboloidBasis );
+	
+	// Calculate the forward paraboloid map texture coordinates, with z 
+	// determining which paraboloid map to sample (front or back).
+	float3 front;
+	front.x = (R.x / (2*(1 + R.z))) + 0.5;
+	front.y = 1-((R.y / (2*(1 + R.z))) + 0.5);
+	front.z = 0.0f;
+
+	// Calculate the backward paraboloid map texture coordinates, with z 
+	// determining which paraboloid map to sample (front or back).
+	float3 back;
+	back.x = (R.x / (2*(1 - R.z))) + 0.5;
+	back.y = 1-((R.y / (2*(1 - R.z))) + 0.5);
+	back.z = 1.0f;
+
+	// Sample the appropriate paraboloid map based on which direction 
+	// the reflection vector is pointing.
+	float4 p_and_p;
+	float4 n_and_e;
+	float3 colour;
+	
+	if ( R.z > 0)
+	{
+		p_and_p = gParaboloidPosition.Sample	( gLinear, front );
+		n_and_e	= gParaboloidNormal.Sample  	( gLinear, front );
+		colour	= gParaboloidDiffuse.Sample 	( gLinear, front ).xyz;
+	}
+	else
+	{
+		p_and_p = gParaboloidPosition.Sample	( gLinear, back );
+		n_and_e	= gParaboloidNormal.Sample  	( gLinear, back );
+		colour	= gParaboloidDiffuse.Sample 	( gLinear, back ).xyz;
+	}
+	
+	/*
+		FORWARD LIGHTING
+	*/
+	
+	float3 position = p_and_p.xyz;
+	float specPwr	= p_and_p.w;
+	
+	float3 normal 	= n_and_e.xyz;
+	float specEms 	= n_and_e.w;
+
+	float3 L = normalize(gLightPos);
+	float3 M = normalize(normal);
+	float3 S = reflect(-L, N);
+	
+	float3 output = colour;
+	output *= saturate(dot(L, M)) * gLightColour;	// diffuse
+	output += pow(max(0.0, dot(S, -E)), 32.0) * 1.0;	// specular
+	
+	// force ambient
+	output = max(ambient * colour, output);
+	
+	// specPwr is used as the alpha here because it is 0 when the render target hasn't been written too and >= 1 when it has been
+	return float4(output, 1.0f);
+}

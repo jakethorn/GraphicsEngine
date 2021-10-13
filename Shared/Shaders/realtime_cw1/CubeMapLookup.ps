@@ -1,0 +1,15 @@
+// Mega
+
+TextureCube gCubeMap : register(t0);
+SamplerState gLinear : register(s0);
+ 
+struct Input
+{
+	float4 positionCS : SV_POSITION;
+    float3 positionOS : POSITION;
+};
+
+float4 main(Input input) : SV_Target
+{
+	return gCubeMap.Sample(gLinear, input.positionOS);
+}

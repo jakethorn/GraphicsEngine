@@ -1,0 +1,16 @@
+// Mega
+
+Texture2D gDiffuse : register(t0);
+
+SamplerState gLinear : register(s0);
+
+struct Input
+{
+	float4 position : SV_Position;
+	float2 texcoord	: TEXCOORD;
+};
+
+float4 main(Input input) : SV_Target
+{
+	return gDiffuse.Sample(gLinear, input.texcoord);
+}

@@ -1,0 +1,44 @@
+{
+	"renderables" :
+	[
+		{
+			"pipelineState" : "screenQuadPPS",
+			"resourceSlot" : 0,
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [-0.8, -0.8, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0 ,0 ,0],
+			"layer" : 4
+		},
+		
+		{
+			"pipelineState" : "screenQuadPPS",
+			"resourceSlot" : 1,
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [-0.4, -0.8, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0 ,0 ,0],
+			"layer" : 4
+		},
+		
+		{
+			"pipelineState" : "screenQuadPPS",
+			"resourceSlot" : 2,
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [0, -0.8, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0 ,0 ,0],
+			"layer" : 4
+		},
+		
+		{
+			"pipelineState" : "screenQuadPPS_02",
+			"resourceSlot" : 0,
+			"shape" : "../../../Shared/Models/quad.3ds",
+			"position" : [0.4, -0.8, 0],
+			"scale" : [0.14, 0.14, 0.14],
+			"rotation" : [0 ,0 ,0],
+			"layer" : 4
+		}	
+	]
+}
